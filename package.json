@@ -2,7 +2,8 @@
   "name": "projectapp",
   "version": "1.0.0",
   "dependencies": {
-    "express": "^4.17.0",
-    "mongodb": "^4.1.0"
+    "express": "^4.17.3",
+    "joi": "^17.6.0",
+    "mongodb": "^4.4.1"
   }
 }
