@@ -4,6 +4,7 @@
   "dependencies": {
     "express": "^4.17.3",
     "joi": "^17.6.0",
-    "mongodb": "^4.4.1"
+    "mongodb": "^4.4.1",
+    "multer": "^1.4.4"
   }
 }
