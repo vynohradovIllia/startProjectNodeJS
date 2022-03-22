@@ -1,4 +1,6 @@
 const Joi = require("Joi");
+const { eventNewUser, emitter } = require("../../helpers/eventNewUser");
+// вопрос про то, как обьявлять библиотеки
 
 const addUser = (req, res) => {
     if(!req.body) {
@@ -15,13 +17,14 @@ const addUser = (req, res) => {
     });
 
     const result = userSchema.validate(req.body);
-    console.log(result);
+    //console.log(result);
 
     const collection = req.app.locals.collection;
 
     collection.insertOne(user, (err, result) => {
         if(err) return console.log(err);
         console.log("Added");
+        emitter.emit(event1);
         res.send(user);
     });
     

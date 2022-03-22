@@ -3,7 +3,6 @@ const objectId = require("mongodb").ObjectId;
 const express = require("express");
 const multer = require("multer");
 const crypto = require("crypto");
-const Emitter = require("events");
 const bodyParser = require('body-parser');
 const dotenv = require("dotenv");
 
@@ -22,9 +21,7 @@ app.use(bodyParser.json())
 // emitter.on()
 
 app.use(logger)
-
 app.use("/users", userRouter);
-
 app.use(express.static(__dirname));
 app.use(multer({dest:"uploads"}).single("filedata"));
 
@@ -36,6 +33,7 @@ app.use((req, res, next) => {
 //     console.log(req.method, req.body);
 //     next();
 // });
+
 
 const mongoClient = new MongoClient(process.env.MONGO_STRING);
 
