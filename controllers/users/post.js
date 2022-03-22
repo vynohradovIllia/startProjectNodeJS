@@ -1,4 +1,4 @@
-const { request } = require("express");
+const Joi = require("Joi");
 
 const addUser = (req, res) => {
     if(!req.body) {
@@ -9,26 +9,23 @@ const addUser = (req, res) => {
     const lName = req.body.lastName;
     let user = {firstName: fName, lastName: lName};
 
-    userSchema = Joi.object().keys({
+    userSchema = Joi.object({
         fName: Joi.string().alphanum().min(2).max(20).required(),
         lName: Joi.string().alphanum().min(2).max(20).required()
     });
 
-    // рассинхорн того, что валидирую
-    const { error, value } = userSchema.validate(req.body);
-    if(error) {
-        return console.log(error);
-    } else {
-        const collection = req.app.locals.collection;
+    const result = userSchema.validate(req.body);
+    console.log(result);
 
-        collection.insertOne(user, (err, result) => {
-            if(err) return console.log(err);
-            res.send(user);
-        });
-    }
+    const collection = req.app.locals.collection;
+
+    collection.insertOne(user, (err, result) => {
+        if(err) return console.log(err);
+        console.log("Added");
+        res.send(user);
+    });
+    
 }
-
-
 
 module.exports = {
     addUser

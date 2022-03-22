@@ -1,4 +1,5 @@
 module.exports = {
     ...require('./post'),
-    ...require('./get')
+    ...require('./get'),
+    ...require('./delete')
 }

@@ -1,10 +1,12 @@
   const express = require("express");
-  const userController = require("../controllers/userController.js");
+  const userGet = require("../controllers/users/get");
+  const userPost = require("../controllers/users/post");
+  const userDelete = require("../controllers/users/delete")
   const userRouter = express.Router();
 
-  userRouter.use("/addUser", userController.addUser);
-  userRouter.use("/getUsers", userController.getUsers);
-  userRouter.use("/deleteUser", userController.deleteUser);
+  userRouter.use("/addUser", userPost.addUser);
+  userRouter.use("/getUsers", userGet.getUsers);
+  userRouter.use("/deleteUser/:id", userDelete.deleteUser);
   //userRouter.use("/patchUser", userController.patchUser);
 
   module.exports = userRouter;

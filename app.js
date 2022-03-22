@@ -1,14 +1,17 @@
 const MongoClient = require("mongodb").MongoClient;
 const objectId = require("mongodb").ObjectId;
 const express = require("express");
-const Joi = require("joi");
 const multer = require("multer");
+const crypto = require("crypto");
+const Emitter = require("events");
+const bodyParser = require('body-parser');
+const dotenv = require("dotenv");
 
-var bodyParser = require('body-parser')
+dotenv.config();
 
+// const emitter = new Emitter();
 const app = express();
 const userRouter = require("./routes/users.js");
-const jsonParser = express.json();
 
 const { logger } = require('./middlewares');
 // parse application/x-www-form-urlencoded
@@ -16,22 +19,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// emitter.on()
+
 app.use(logger)
-app.user(wiillDONotUnderstand(123123123))
 
 app.use("/users", userRouter);
 
 app.use(express.static(__dirname));
 app.use(multer({dest:"uploads"}).single("filedata"));
-
-// app.post("/upload", (req, res) => {
-//     let filedata = req.file;
-//     if(!filedata) {
-//         res.send("Error");
-//     } else {
-//         res.send("Upload complete");
-//     }
-// });
 
 app.use((req, res, next) => {
     res.status(404).send("Not Found");
@@ -42,8 +37,7 @@ app.use((req, res, next) => {
 //     next();
 // });
 
-// add password to .env
-const mongoClient = new MongoClient("mongodb+srv://vynohradov:353DyNj8x9xXNCM@cluster0.mglv0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+const mongoClient = new MongoClient(process.env.MONGO_STRING);
 
 let dbClient;
 
